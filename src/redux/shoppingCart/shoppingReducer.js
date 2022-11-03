@@ -1,9 +1,13 @@
 
-import { ASUSINCREMENET, ASUSDECREMENT, QUANTDECREMENT, QUANTINCREAMENT, DELLQUANTDECREMENT, DELLQUANTINCREAMENT, CANONQUANTDECREMENT, CANONQUANTINCREAMENT, DELLINCREMENET, CANNONINCREMENET, DELLDECREMENT } from './actionTypes';
+import { ASUSDECREMENT, ASUSINCREMENET, CANNONDECREMENT, CANNONINCREMENET, CANONQUANTDECREMENT, CANONQUANTINCREAMENT, DELLDECREMENT, DELLINCREMENET, DELLQUANTDECREMENT, DELLQUANTINCREAMENT, QUANTDECREMENT, QUANTINCREAMENT } from './actionTypes';
 
 const initialState = {
    value: 0,
    dellValue:0,
+   canonValue: 0,
+   asusProduct: false,
+   dellProduct: false,
+   canonProduct: false,
    totalItem:0,
    price: 0,
    asus: {
@@ -36,7 +40,8 @@ const shoppingReducer = (state = initialState, action) => {
             ...state,
             value: state.value + 1,
             price: state.price + action.payload,
-            totalItem: state.totalItem + 1
+            totalItem: state.totalItem + 1,
+            asusProduct: (state.asusProduct = true),
          };
       case DELLINCREMENET:
          return {
@@ -44,6 +49,7 @@ const shoppingReducer = (state = initialState, action) => {
             dellValue: state.dellValue + 1,
             price: state.price + action.payload,
             totalItem: state.totalItem + 1,
+            dellProduct: (state.dellProduct = true),
          };
       case DELLDECREMENT:
          return {
@@ -52,12 +58,7 @@ const shoppingReducer = (state = initialState, action) => {
             price: state.price - action.payload,
             totalItem: state.totalItem - 1,
          };
-      case CANNONINCREMENET:
-         return {
-            ...state,
-            value: state.value + 1,
-            price: state.price + action.payload,
-         };
+
       case ASUSDECREMENT:
          return {
             ...state,
@@ -90,7 +91,7 @@ const shoppingReducer = (state = initialState, action) => {
       case DELLQUANTDECREMENT:
          return {
             ...state,
-            asus: {
+            dell: {
                quantity: state.dell.quantity - 1,
                price: (9300).toLocaleString("en-US", {
                   style: "currency",
@@ -101,7 +102,7 @@ const shoppingReducer = (state = initialState, action) => {
       case DELLQUANTINCREAMENT:
          return {
             ...state,
-            asus: {
+            dell: {
                quantity: state.dell.quantity + 1,
                price: (9300).toLocaleString("en-US", {
                   style: "currency",
@@ -109,10 +110,28 @@ const shoppingReducer = (state = initialState, action) => {
                }),
             },
          };
+
+      case CANNONINCREMENET:
+         return {
+            ...state,
+            canonValue: state.canonValue + 1,
+            price: state.price + action.payload,
+            totalItem: state.totalItem + 1,
+            canonProduct: (state.canonProduct = true),
+         };
+
+      case CANNONDECREMENT:
+         return {
+            ...state,
+            canonValue: state.canonValue - 1,
+            price: state.price - action.payload,
+            totalItem: state.totalItem - 1,
+         };
+
       case CANONQUANTINCREAMENT:
          return {
             ...state,
-            asus: {
+            canon: {
                quantity: state.canon.quantity + 1,
                price: (36500).toLocaleString("en-US", {
                   style: "currency",
@@ -123,7 +142,7 @@ const shoppingReducer = (state = initialState, action) => {
       case CANONQUANTDECREMENT:
          return {
             ...state,
-            asus: {
+            canon: {
                quantity: state.canon.quantity - 1,
                price: (36500).toLocaleString("en-US", {
                   style: "currency",
