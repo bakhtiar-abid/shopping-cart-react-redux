@@ -48,8 +48,9 @@ const shoppingReducer = (state = initialState, action) => {
       case DELLDECREMENT:
          return {
             ...state,
-            value: state.dellValue - 1,
-            price: state.price + action.payload,
+            dellValue: state.dellValue - 1,
+            price: state.price - action.payload,
+            totalItem: state.totalItem - 1,
          };
       case CANNONINCREMENET:
          return {
@@ -62,6 +63,7 @@ const shoppingReducer = (state = initialState, action) => {
             ...state,
             value: state.value - 1,
             price: state.price - action.payload,
+            totalItem: state.totalItem - 1,
          };
       case QUANTDECREMENT:
          return {

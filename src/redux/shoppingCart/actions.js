@@ -26,6 +26,7 @@ export const dellIncrement = (value) => {
       payload: value,
    };
 };
+
 export const cannonIncrement = (value) => {
    return {
       type: CANNONINCREMENET,

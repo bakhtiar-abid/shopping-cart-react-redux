@@ -29,6 +29,8 @@ const ShoppingCarts = () => {
       (state) => state.shoppingCart.canon.quantity
    );
    const asusPrice = useSelector((state) => state.shoppingCart.asus.price);
+   const dellPrice = useSelector((state) => state.shoppingCart.dell.price);
+   const canonPrice = useSelector((state) => state.shoppingCart.canon.price);
    const initialTotalPrice = useSelector((state) => state.shoppingCart.price);
 
    const dispatch = useDispatch();
@@ -113,11 +115,12 @@ const ShoppingCarts = () => {
                   <div class="flex justify-between px-4 items-center">
                      <div class="text-lg font-semibold">
                         <p>Dell E1916HV 18.5 Inch ({dellQuantity})</p>
-                        <p class="text-gray-400 text-base">Tk 9,300</p>
+                        <p class="text-gray-400 text-base">{dellPrice}</p>
                      </div>
                      <div class="text-lg font-semibold">
-                        <button class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center"
-                        onClick={() => {
+                        <button
+                           class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center"
+                           onClick={() => {
                               dellQuantDecrement();
                               dellIncrementHandler(9300);
                            }}
@@ -230,7 +233,13 @@ const ShoppingCarts = () => {
                      </div>
                      <div class="text-lg py-2">
                         <div class="flex flex-row space-x-2 w-full items-center rounded-lg">
-                           <button class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center">
+                           <button
+                              class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                              onClick={() => {
+                                 dellDecrementHandler(9300);
+                                 dellQuantDecrement();
+                              }}
+                           >
                               <svg
                                  xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
@@ -247,7 +256,13 @@ const ShoppingCarts = () => {
                               </svg>
                            </button>
                            <p>{dellInitialValue}</p>
-                           <button class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center">
+                           <button
+                              class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                              onClick={() => {
+                                 dellIncrementHandler(9300);
+                                 dellQuantDecrement();
+                              }}
+                           >
                               <svg
                                  xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
