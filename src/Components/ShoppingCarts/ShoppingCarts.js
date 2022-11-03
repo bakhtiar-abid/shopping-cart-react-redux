@@ -1,7 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    cannonDecrement,
+    cannonIncrement,
+   canonQuantDecrement,
    decrement,
+   dellDecrement,
+   dellIncrement,
+   dellQuantDecrement,
    increment,
    quantDecrement,
    quantIncreament,
@@ -9,23 +15,55 @@ import {
 
 const ShoppingCarts = () => {
    const initialValue = useSelector((state) => state.shoppingCart.value);
+   const dellInitialValue = useSelector((state) => state.shoppingCart.dellValue);
+   const totalInitialItem = useSelector(
+      (state) => state.shoppingCart.totalItem
+   );
    const asusQuantity = useSelector(
       (state) => state.shoppingCart.asus.quantity
    );
+   const dellQuantity = useSelector(
+      (state) => state.shoppingCart.dell.quantity
+   );
+   const cannonQuantity = useSelector(
+      (state) => state.shoppingCart.canon.quantity
+   );
    const asusPrice = useSelector((state) => state.shoppingCart.asus.price);
+   const initialTotalPrice = useSelector((state) => state.shoppingCart.price);
 
    const dispatch = useDispatch();
 
-   const incrementHandler = () => {
-      dispatch(increment());
+   const incrementHandler = (value) => {
+      dispatch(increment(value));
    };
-   const decrementHandler = () => {
-      dispatch(decrement());
+   const dellIncrementHandler = (value) => {
+      dispatch(dellIncrement(value));
+   };
+   const cannonIncrementHandler = (value) => {
+      dispatch(cannonIncrement(value));
+   };
+
+   const decrementHandler = (value) => {
+      dispatch(decrement(value));
+   };
+
+   const dellDecrementHandler = (value) => {
+      dispatch(dellDecrement(value));
+   };
+   const cannonDecrementHandler = (value) => {
+      dispatch(cannonDecrement(value));
    };
 
    const quantDecrementHandler = () => {
       dispatch(quantDecrement());
    };
+   const dellQuantDecrementHandler = () => {
+      dispatch(dellQuantDecrement());
+   };
+   const cannonQuantDecrementHandler = () => {
+      dispatch(canonQuantDecrement());
+   };
+   
    const quantIncrementHandler = () => {
       dispatch(quantIncreament());
    };
@@ -50,7 +88,7 @@ const ShoppingCarts = () => {
                            class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center"
                            onClick={() => {
                               quantDecrementHandler();
-                              incrementHandler();
+                              incrementHandler(35000);
                            }}
                         >
                            <svg
@@ -74,11 +112,16 @@ const ShoppingCarts = () => {
                <div class="bg-white py-4 px-4 shadow-md rounded-lg my-4 mx-4">
                   <div class="flex justify-between px-4 items-center">
                      <div class="text-lg font-semibold">
-                        <p>Dell E1916HV 18.5 Inch (35)</p>
+                        <p>Dell E1916HV 18.5 Inch ({dellQuantity})</p>
                         <p class="text-gray-400 text-base">Tk 9,300</p>
                      </div>
                      <div class="text-lg font-semibold">
-                        <button class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center">
+                        <button class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center"
+                        onClick={() => {
+                              dellQuantDecrement();
+                              dellIncrementHandler(9300);
+                           }}
+                        >
                            <svg
                               xmlns="http://www.w3.org/2000/svg"
                               class="h-6 w-6"
@@ -134,10 +177,10 @@ const ShoppingCarts = () => {
                         <div class="flex flex-row space-x-2 w-full items-center rounded-lg">
                            <button
                               class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
-                              onClick={ ()=>{
-                                decrementHandler();
-                                quantIncrementHandler();
-                              } }
+                              onClick={() => {
+                                 decrementHandler(35000);
+                                 quantIncrementHandler();
+                              }}
                            >
                               <svg
                                  xmlns="http://www.w3.org/2000/svg"
@@ -157,9 +200,9 @@ const ShoppingCarts = () => {
                            <p>{initialValue}</p>
                            <button
                               class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
-                              onClick={ ()=>{
-                                incrementHandler();
-                                quantDecrementHandler();
+                              onClick={() => {
+                                 incrementHandler(35000);
+                                 quantDecrementHandler();
                               }}
                            >
                               <svg
@@ -203,7 +246,7 @@ const ShoppingCarts = () => {
                                  />
                               </svg>
                            </button>
-                           <p>0</p>
+                           <p>{dellInitialValue}</p>
                            <button class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center">
                               <svg
                                  xmlns="http://www.w3.org/2000/svg"
@@ -270,7 +313,7 @@ const ShoppingCarts = () => {
                   <div class="flex justify-center items-center text-center">
                      <div class="text-xl font-semibold">
                         <p>Total Item</p>
-                        <p class="text-5xl">{initialValue}</p>
+                        <p class="text-5xl">{totalInitialItem}</p>
                      </div>
                   </div>
                </div>
@@ -278,7 +321,7 @@ const ShoppingCarts = () => {
                   <div class="flex justify-center items-center text-center">
                      <div class="text-xl font-semibold">
                         <p>Total Price</p>
-                        <p class="text-5xl">0</p>
+                        <p class="text-5xl">{initialTotalPrice}</p>
                      </div>
                   </div>
                </div>
