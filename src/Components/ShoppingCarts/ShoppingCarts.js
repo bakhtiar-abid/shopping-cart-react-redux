@@ -22,6 +22,11 @@ const ShoppingCarts = () => {
    const asusProduct = useSelector((state) => state.shoppingCart.asusProduct);
    const dellProduct = useSelector((state) => state.shoppingCart.dellProduct);
    const canonProduct = useSelector((state) => state.shoppingCart.canonProduct);
+
+   const asusQuantityStock = useSelector(
+      (state) => state.shoppingCart.asus.quantity
+   );
+   
    const totalInitialItem = useSelector(
       (state) => state.shoppingCart.totalItem
    );
@@ -67,6 +72,7 @@ const ShoppingCarts = () => {
 
    const quantDecrementHandler = () => {
       dispatch(quantDecrement());
+      
    };
    const dellQuantDecrementHandler = () => {
       dispatch(dellQuantDecrement());
@@ -99,7 +105,9 @@ const ShoppingCarts = () => {
                   <div class="flex justify-between px-4 items-center">
                      <div class="text-lg font-semibold">
                         <p>Asus Vivobook X515MA ({asusQuantity})</p>
-                        <p class="text-gray-400 text-base">{asusPrice}</p>
+                        <p class="text-gray-400 text-base pr-[125px]">
+                           {asusPrice}
+                        </p>
                      </div>
                      <div class="text-lg font-semibold">
                         <button
@@ -131,7 +139,9 @@ const ShoppingCarts = () => {
                   <div class="flex justify-between px-4 items-center">
                      <div class="text-lg font-semibold">
                         <p>Dell E1916HV 18.5 Inch ({dellQuantity})</p>
-                        <p class="text-gray-400 text-base">{dellPrice}</p>
+                        <p class="text-gray-400 text-base pr-[125px]">
+                           {dellPrice}
+                        </p>
                      </div>
                      <div class="text-lg font-semibold">
                         <button
@@ -163,14 +173,16 @@ const ShoppingCarts = () => {
                   <div class="flex justify-between px-4 items-center">
                      <div class="text-lg font-semibold">
                         <p>Canon Eos 4000D 18MP ({cannonQuantity})</p>
-                        <p class="text-gray-400 text-base">{canonPrice}</p>
+                        <p class="text-gray-400 text-base pr-[125px]">
+                           {canonPrice}
+                        </p>
                      </div>
                      <div class="text-lg font-semibold">
                         <button
                            class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-2 px-2 rounded-full inline-flex items-center"
                            onClick={() => {
-                            cannonIncrementHandler(36500);
-                            cannonQuantDecrementHandler();
+                              cannonIncrementHandler(36500);
+                              cannonQuantDecrementHandler();
                            }}
                         >
                            <svg
@@ -201,51 +213,104 @@ const ShoppingCarts = () => {
                         </div>
                         <div class="text-lg py-2">
                            <div class="flex flex-row space-x-2 w-full items-center rounded-lg">
-                              <button
-                                 class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
-                                 onClick={() => {
-                                    decrementHandler(35000);
-                                    quantIncrementHandler();
-                                 }}
-                              >
-                                 <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
+                              {asusQuantity === 20 ? (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       decrementHandler(35000);
+                                       quantIncrementHandler();
+                                    }}
+                                    disabled
                                  >
-                                    <path
-                                       stroke-linecap="round"
-                                       stroke-linejoin="round"
-                                       stroke-width="2"
-                                       d="M18 12H6"
-                                    />
-                                 </svg>
-                              </button>
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M18 12H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              ) : (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       decrementHandler(35000);
+                                       quantIncrementHandler();
+                                    }}
+                                 >
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M18 12H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              )}
+
                               <p>{initialValue}</p>
-                              <button
-                                 class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
-                                 onClick={() => {
-                                    incrementHandler(35000);
-                                    quantDecrementHandler();
-                                 }}
-                              >
-                                 <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
+                              {asusQuantityStock === 0 ? (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       incrementHandler(35000);
+                                       quantDecrementHandler();
+                                    }}
+                                    disabled
                                  >
-                                    <path
-                                       stroke-linecap="round"
-                                       stroke-linejoin="round"
-                                       stroke-width="2"
-                                       d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                                    />
-                                 </svg>
-                              </button>
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              ) : (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       incrementHandler(35000);
+                                       quantDecrementHandler();
+                                    }}
+                                 >
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              )}
                            </div>
                         </div>
                      </div>
@@ -260,51 +325,104 @@ const ShoppingCarts = () => {
                         </div>
                         <div class="text-lg py-2">
                            <div class="flex flex-row space-x-2 w-full items-center rounded-lg">
-                              <button
-                                 class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
-                                 onClick={() => {
-                                    dellDecrementHandler(9300);
-                                    dellQuantIncrement();
-                                 }}
-                              >
-                                 <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
+                              {dellQuantity === 35 ? (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       dellDecrementHandler(9300);
+                                       dellQuantIncrement();
+                                    }}
+                                    disabled
                                  >
-                                    <path
-                                       stroke-linecap="round"
-                                       stroke-linejoin="round"
-                                       stroke-width="2"
-                                       d="M18 12H6"
-                                    />
-                                 </svg>
-                              </button>
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M18 12H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              ) : (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       dellDecrementHandler(9300);
+                                       dellQuantIncrement();
+                                    }}
+                                 >
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M18 12H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              )}
+
                               <p>{dellInitialValue}</p>
-                              <button
-                                 class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
-                                 onClick={() => {
-                                    dellIncrementHandler(9300);
-                                    dellQuantDecrementHandler();
-                                 }}
-                              >
-                                 <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
+                              {dellQuantity === 0 ? (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       dellIncrementHandler(9300);
+                                       dellQuantDecrementHandler();
+                                    }}
+                                    disabled
                                  >
-                                    <path
-                                       stroke-linecap="round"
-                                       stroke-linejoin="round"
-                                       stroke-width="2"
-                                       d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                                    />
-                                 </svg>
-                              </button>
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              ) : (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       dellIncrementHandler(9300);
+                                       dellQuantDecrementHandler();
+                                    }}
+                                 >
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              )}
                            </div>
                         </div>
                      </div>
@@ -319,51 +437,104 @@ const ShoppingCarts = () => {
                         </div>
                         <div class="text-lg py-2">
                            <div class="flex flex-row space-x-2 w-full items-center rounded-lg">
-                              <button
-                                 class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
-                                 onClick={() => {
-                                    cannonDecrementHandler(36500);
-                                    cannonQuantIncrementHandler();
-                                 }}
-                              >
-                                 <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
+                              {cannonQuantity === 72 ? (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       cannonDecrementHandler(36500);
+                                       cannonQuantIncrementHandler();
+                                    }}
+                                    disabled
                                  >
-                                    <path
-                                       stroke-linecap="round"
-                                       stroke-linejoin="round"
-                                       stroke-width="2"
-                                       d="M18 12H6"
-                                    />
-                                 </svg>
-                              </button>
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M18 12H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              ) : (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       cannonDecrementHandler(36500);
+                                       cannonQuantIncrementHandler();
+                                    }}
+                                 >
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M18 12H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              )}
+
                               <p>{canonValue}</p>
-                              <button
-                                 class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
-                                 onClick={() => {
-                                    cannonIncrementHandler(36500);
-                                    cannonQuantDecrementHandler();
-                                 }}
-                              >
-                                 <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    class="h-4 w-4"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
+                              {cannonQuantity === 0 ? (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       cannonIncrementHandler(36500);
+                                       cannonQuantDecrementHandler();
+                                    }}
+                                    disabled
                                  >
-                                    <path
-                                       stroke-linecap="round"
-                                       stroke-linejoin="round"
-                                       stroke-width="2"
-                                       d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                                    />
-                                 </svg>
-                              </button>
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              ) : (
+                                 <button
+                                    class="focus:outline-none bg-purple-700 hover:bg-purple-800 text-white font-bold py-1 px-1 rounded-full inline-flex items-center"
+                                    onClick={() => {
+                                       cannonIncrementHandler(36500);
+                                       cannonQuantDecrementHandler();
+                                    }}
+                                 >
+                                    <svg
+                                       xmlns="http://www.w3.org/2000/svg"
+                                       class="h-4 w-4"
+                                       fill="none"
+                                       viewBox="0 0 24 24"
+                                       stroke="currentColor"
+                                    >
+                                       <path
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                       />
+                                    </svg>
+                                 </button>
+                              )}
                            </div>
                         </div>
                      </div>
